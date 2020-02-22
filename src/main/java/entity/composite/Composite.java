@@ -15,16 +15,10 @@ public class Composite implements Component {
 	private static final String ERR_REMOVE = "Error_invalid_deleted_component_index";
 	private static final String ERR_GET_CHILD = "Error_invalid_component_index";
 	
-	private List<Component> componentList = new ArrayList<Component>();
-	private ComponentType type;		
+	private List<Component> componentList = new ArrayList<Component>();	
 
-	public Composite(ComponentType type) {
+	public Composite() {
 		super();
-		this.type = type;
-	}	
-
-	public ComponentType getType() {
-		return type;
 	}
 
 	public boolean add(Component component) throws CompositeException {
