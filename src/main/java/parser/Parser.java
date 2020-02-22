@@ -6,11 +6,14 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import calculator.Calculator;
 import entity.composite.Component;
 import entity.composite.Composite;
 import entity.composite.LeafChar;
+import exception.CalculatotException;
 import exception.CompositeException;
 import exception.ParserException;
+import util.Validator;
 
 public class Parser {
 	
@@ -24,7 +27,12 @@ public class Parser {
 	public Parser(TypeOfParser typeOfParser) {
 		super();
 		this.typeOfParser = typeOfParser;		
+	}	
+
+	public void setNextParser(Parser nextParser) {
+		this.nextParser = nextParser;
 	}
+
 
 	public TypeOfParser getTypeOfParser() {
 		return typeOfParser;
@@ -34,7 +42,7 @@ public class Parser {
 		this.nextParser = nextParser;
 	}
 
-	public Component parse(String text) throws CompositeException, ParserException {	
+	public Component parse(String text) throws CompositeException, ParserException, CalculatotException {	
 		if (text == null) {
 			LOGGER.error(ERR_PARSE);
 			throw new ParserException(ERR_PARSE);
@@ -53,7 +61,11 @@ public class Parser {
 			if (typeOfParser.equals(TypeOfParser.WORDS_TO_SYMBOLS) && !matcher.group().isEmpty()) {				
 				component.add(new LeafChar(matcher.group().charAt(0)));
 			} else {
-				component.add(nextParser.parse(matcher.group(1)));
+				String fragment = matcher.group(1);
+				if (typeOfParser.equals(TypeOfParser.LEXEME_TO_WORDS) && Validator.isExpression(fragment) && Validator.isExpressionValid(fragment)) {
+					fragment = calculateExpression(fragment);
+				}
+				component.add(nextParser.parse(fragment));
 				if (!matcher.group(2).isEmpty()) {
 					component.add(new LeafChar(matcher.group(2).charAt(0)));
 				}				
@@ -61,5 +73,10 @@ public class Parser {
 		}
 
 		return component;
+	}
+	
+	private String calculateExpression(String expression) throws CalculatotException {
+		Calculator calculator = new Calculator();
+		return String.valueOf(calculator.calculate(expression));
 	}
 }
