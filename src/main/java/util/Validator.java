@@ -25,7 +25,7 @@ public class Validator {
 		}
 		Calculator calculator = new Calculator();
 		try {
-			int rez = calculator.calculate(text);
+			calculator.calculate(text);
 		} catch (CalculatotException e) {
 			return false;
 		}
@@ -38,10 +38,9 @@ public class Validator {
 			if (text.charAt(i) == '(') {
 				stack.push(text.charAt(i));
 			}
-			if (text.charAt(i) == ')') {
-				char exist;
+			if (text.charAt(i) == ')') {				
 				try {
-					exist = stack.pop();
+					stack.pop();
 				} catch (NoSuchElementException e) {
 					return false;
 				}
