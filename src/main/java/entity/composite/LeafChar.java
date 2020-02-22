@@ -5,23 +5,15 @@ import org.apache.logging.log4j.Logger;
 
 import exception.CompositeException;
 
-public class Leaf implements Component {
+public class LeafChar implements Component {
 
-	private static final Logger LOGGER = LogManager.getLogger(Leaf.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger(LeafChar.class.getName());
 	private static final String ERR_GET_CHILD = "Error_Unsupport_Operation";
 	
-	private char symbol;		
+	private char symbol;	
 
-	public Leaf() {
-		super();		
-	}
-
-	public Leaf(char symbol) {
-		this();
-		this.symbol = symbol;
-	}	
-	
-	public void setSymbol(char symbol) {
+	public LeafChar(char symbol) {
+		super();
 		this.symbol = symbol;
 	}	
 

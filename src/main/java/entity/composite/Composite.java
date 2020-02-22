@@ -56,7 +56,4 @@ public class Composite implements Component {
 			throw new CompositeException(errorMesage);
 		}		
 	}
-	
-	
-
 }
