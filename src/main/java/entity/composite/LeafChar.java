@@ -38,4 +38,11 @@ public class LeafChar implements Component {
 		return String.valueOf(symbol);
 	}
 
+	@Override
+	public int getSize() {
+		return 0;
+	}
+	
+	
+
 }

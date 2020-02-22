@@ -8,4 +8,5 @@ public interface Component {
 	boolean remove(Object obj) throws CompositeException;
 	Component getChild(int index) throws CompositeException;
 	String getValue();
+	int getSize();
 }

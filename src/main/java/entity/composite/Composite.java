@@ -50,6 +50,13 @@ public class Composite implements Component {
 		return result.toString();
 	}
 
+	
+
+	@Override
+	public int getSize(){
+		return componentList.size();
+	}
+
 	private void validateIsNull(Object obj, String errorMesage) throws CompositeException {
 		if (obj == null) {
 			LOGGER.error(errorMesage);
