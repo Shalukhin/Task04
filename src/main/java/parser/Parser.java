@@ -52,7 +52,7 @@ public class Parser {
 			throw new ParserException(ERR_NEXT_PARSE);
 		}
 		
-		Component component = new Composite();
+		Component component = new Composite(typeOfParser.getTypeOfReturnedConposite());
 
 		Pattern pattern = Pattern.compile(typeOfParser.getRegex());
 		Matcher matcher = pattern.matcher(text);

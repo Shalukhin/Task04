@@ -1,13 +1,15 @@
 package runner;
 
 import entity.composite.Component;
+import exception.CompositeException;
 import parser.Parser;
 import parser.TypeOfParser;
+import sort.Sorter;
 import util.Reader;
 
 public class Runner {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CompositeException {
 		
 		Parser textParagr = new Parser(TypeOfParser.TEXT_TO_PARAGRAPHS);
 		Parser paragrSent = new Parser(TypeOfParser.PARAGRAPHS_TO_SENTENCES);
@@ -20,18 +22,29 @@ public class Runner {
 		sentLex.setNextParser(lexWord);
 		lexWord.setNextParser(wordSymb);
 		
-		Component compos = null;
+		Component compositeText = null;
 		try {
-			compos = textParagr.parse(Reader.readTextFromResourceFile("text.txt"));
+			compositeText = textParagr.parse(Reader.readTextFromResourceFile("text.txt"));
 		} catch (Exception e) {
 			System.out.println("Something went wrong((");
 		}
 		
-		if (compos != null) {
-			System.out.println(compos.getValue());
+		if (compositeText != null) {
+			System.out.println(compositeText.getValue());
 		}
 		
-
+				
+		try {
+			Sorter.sortTextByParagraphsIncreaseCountSentence(compositeText);
+		} catch (CompositeException e) {
+			System.out.println("Sorting wrong((");
+		}
+				
+		System.out.println("Text after sort by count sentences in paragraph increase:");
+		System.out.println();
+		
+		if (compositeText != null) {
+			System.out.println(compositeText.getValue());
+		}
 	}
-
 }

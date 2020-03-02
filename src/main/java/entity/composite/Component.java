@@ -1,5 +1,7 @@
 package entity.composite;
 
+import java.util.Comparator;
+
 import exception.CompositeException;
 
 public interface Component {
@@ -9,4 +11,6 @@ public interface Component {
 	Component getChild(int index) throws CompositeException;
 	String getValue();
 	int getSize();
+	ComponentType getType();
+	void sort(ComponentType sortedComposite, Comparator<Component> comparator) throws CompositeException;
 }
